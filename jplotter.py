@@ -2876,7 +2876,7 @@ def run_plotter(cmdsrc, **kwargs):
 
     # The baseline selection "bl"
     c.addCommand( \
-        mkcmd(rx=re.compile(r"^bl(\s+[0-9a-zA-Z|()*+\-!]+)*$"), hlp=Help["bl"], \
+        mkcmd(rx=re.compile(r"^bl(\s+[0-9a-zA-Z_|()*+\-!]+)*$"), hlp=Help["bl"], \
               args=lambda x : re.sub(r"^bl\s*", "", x).split(), \
               cb=lambda *args: j().baselines(*args), id="bl") )
 
