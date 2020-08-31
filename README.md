@@ -121,11 +121,17 @@ _inside_ the container.
 
 ### Running the Docker image
 
-Allegedly, running Docker like this:
+To get the X11 forwarding operational on MacOS, some additional steps need to be performed (see [this link](https://gist.github.com/cschiewek/246a244ba23da8b9f0e7b11a68bf3285) for more information). This has been verified to work on MacOS Catalina running a bash shell. 
+
+In the X-quartz preferences make sure you have checked the box to "Allow connections from network clients". 
+
+Run ```xhost + ${hostname}``` and setup a HOSTNAME environment variable with ```export HOSTNAME=`hostname` ```. These steps can be automated for each new shell.
+
+Then, running the Docker like this:
 ```bash
-$ docker run -it --init --network=host -v /tmp/.X11-unix:/tmp/.X11-unix:ro -e DISPLAY="$DISPLAY" -v <local dir>:<container dir> haavee/jiveplot
+$ docker run -it --init --network=host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=${HOSTNAME}:0 -v <local dir>:<container dir> haavee/jiveplot
 ```
-does X11 forwarding but yours truly has seen it also *not* work. YMMV.
+should get the X11 forwarding to work. Additional information can also be found [here](https://gist.github.com/paul-krohn/e45f96181b1cf5e536325d1bdee6c949).
 
 Both commands should drop you immediately into the `jiveplot` command line interface:
 
